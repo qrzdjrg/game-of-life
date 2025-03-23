@@ -45,13 +45,9 @@ func (g *Game) New() {
 }
 
 func (g *Game) NewSquare(m int) {
-	g.NewRect(m, m)
-}
-
-func (g *Game) NewRect(m, n int) {
-	g.Grid.New(m, n)
+	g.Grid.New(m, m)
 	g.M = m
-	g.N = n
+	g.N = m
 }
 
 func (g *Grid) New(m, n int) {
@@ -188,15 +184,15 @@ func (g *Grid) Print() {
 }
 
 func main() {
-	var rtm runtime.MemStats
-	dumpMemStats("First Mem", rtm)
+	// var rtm runtime.MemStats
+	// dumpMemStats("First Mem", rtm)
 
 	fmt.Println("Game of Life")
 
 	game := &Game{}
-	game.New()
+	game.NewSquare(10)
 
-	dumpMemStats("Alloc Mem", rtm)
+	// dumpMemStats("Alloc Mem", rtm)
 
 	game.initOscillator()
 	game.initOscillator2()
@@ -204,7 +200,7 @@ func main() {
 	game.RunN(5, 500)
 	game.Clear()
 
-	dumpMemStats("Last Mem", rtm)
+	// dumpMemStats("Last Mem", rtm)
 }
 
 func dumpMemStats(message string, rtm runtime.MemStats) {
